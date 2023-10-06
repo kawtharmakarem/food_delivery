@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppColors{
-  static final Color textColor=const Color(0xffccc7c5);
-  static final Color mainColor=const Color(0xff89dad0);
-  static final Color iconColor1=const Color(0xffffd28d);
-  static final Color iconColor2=const Color(0xfffcab88);
-  static final  Color paraColor=const Color(0xff8f837f);
-  static final Color buttonBackgroudColor=const Color(0xfff7f6f4);
-  static final Color signColor=const Color(0xffa9a29f);
-  static final Color titleColor=const Color(0xff5c524f);
-  static final Color mainblackColor=const Color(0xff332d2b);
-  static final Color yellowColor=const Color(0xffffd379);
+  static const Color textColor=Color(0xffccc7c5);
+  static const Color mainColor=Color(0xff89dad0);
+  static const Color iconColor1=Color(0xffffd28d);
+  static const Color iconColor2=Color(0xfffcab88);
+  static const  Color paraColor=Color(0xff8f837f);
+  static const Color buttonBackgroudColor=Color(0xfff7f6f4);
+  static const Color signColor=Color(0xffa9a29f);
+  static const Color titleColor=Color(0xff5c524f);
+  static const Color mainblackColor=Color(0xff332d2b);
+  static const Color yellowColor=Color(0xffffd379);
 }
