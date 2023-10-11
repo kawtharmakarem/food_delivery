@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fooddelivery/home/food_page_body.dart';
+import 'package:fooddelivery/pages/home/food_page_body.dart';
 import 'package:fooddelivery/utils/colors.dart';
 import 'package:fooddelivery/utils/dimensions.dart';
 import 'package:fooddelivery/widgets/big_text.dart';
@@ -56,7 +56,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ),
             ),
           ),
-       FoodPageBody()
+       Expanded(child: SingleChildScrollView(child: FoodPageBody()))
         ],
       ), 
     );
