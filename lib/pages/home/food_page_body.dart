@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:fooddelivery/utils/colors.dart';
 import 'package:fooddelivery/utils/dimensions.dart';
+import 'package:fooddelivery/widgets/app_column.dart';
 import 'package:fooddelivery/widgets/big_text.dart';
 import 'package:fooddelivery/widgets/icon_and_text_widget.dart';
 import 'package:fooddelivery/widgets/small_text.dart';
@@ -97,21 +98,21 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.only(
-                    left: Dimensions.width20,
-                    right: Dimensions.width20,
+                    left: Dimensions.width10,
+                    right: Dimensions.width10,
                     bottom: Dimensions.height10),
                 child: Row(
                   children: [
                     Container(
-                      width: Dimensions.listViewImg,
-                      height: Dimensions.listViewImg,
+                      width: Dimensions.width100,
+                      height: Dimensions.height100,
                       decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius20),
                           color: Colors.white38,
                           image: const DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage("assets/images/food01.jpg"))),
+                              image: AssetImage("assets/images/food02.jpg"))),
                     ),
                     Expanded(
                       child: Container(
@@ -209,7 +210,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 color: index.isEven ? Color(0xff69c5df) : Color(0xff9294cc),
                 image: const DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/food01.jpg"))),
+                    image: AssetImage("assets/images/food02.jpg"))),
           ),
           Align(
             alignment: Alignment.bottomCenter,
@@ -233,62 +234,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               child: Container(
                 padding: EdgeInsets.only(
                     top: Dimensions.height15,
-                    left: Dimensions.height15,
-                    right: Dimensions.height15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(text: "Chinese Side "),
-                    SizedBox(
-                      height: Dimensions.height10, //todo old value 10
-                    ),
-                    Row(
-                      children: [
-                        Wrap(
-                          children: List.generate(
-                              5,
-                              (index) => const Icon(
-                                    Icons.star,
-                                    color: AppColors.mainColor,
-                                    size: 15,
-                                  )),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "4.5"),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        SmallText(text: "1287"),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        SmallText(text: "comments"),
-                      ],
-                    ),
-                    SizedBox(
-                      height: Dimensions.height20, //todo old value 20
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconAndTextWidget(
-                            icon: Icons.circle_sharp,
-                            text: "Normal",
-                            iconColor: AppColors.iconColor1),
-                        IconAndTextWidget(
-                            icon: Icons.location_on,
-                            text: "1.7Km",
-                            iconColor: AppColors.mainColor),
-                        IconAndTextWidget(
-                            icon: Icons.access_time_filled_rounded,
-                            text: "32min",
-                            iconColor: AppColors.iconColor2)
-                      ],
-                    )
-                  ],
-                ),
+                    left: Dimensions.width15,
+                    right: Dimensions.width15),
+                child:AppColumn(text: "Chinese Side",)
               ),
             ),
           ),
