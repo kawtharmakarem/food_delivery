@@ -15,7 +15,7 @@ class AppColumn extends StatelessWidget {
     return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigText(text:text,size: Dimensions.fonts26,),
+                  BigText(text:text,size: Dimensions.font20,),
                   SizedBox(
                     height: Dimensions.height10, //todo old value 10
                   ),
@@ -24,22 +24,22 @@ class AppColumn extends StatelessWidget {
                       Wrap(
                         children: List.generate(
                             5,
-                            (index) => const Icon(
+                            (index) => Icon(
                                   Icons.star,
                                   color: AppColors.mainColor,
-                                  size: 15,
+                                  size: Dimensions.iconSize15,
                                 )),
                       ),
-                      const SizedBox(
-                        width: 10,
+                       SizedBox(
+                        width: Dimensions.width10,
                       ),
                       SmallText(text: "4.5"),
-                      const SizedBox(
-                        width: 10,
+                       SizedBox(
+                        width: Dimensions.width10,
                       ),
                       SmallText(text: "1287"),
-                      const SizedBox(
-                        width: 5,
+                       SizedBox(
+                        width: Dimensions.width5,
                       ),
                       SmallText(text: "comments"),
                     ],
