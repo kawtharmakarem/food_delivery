@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/controllers/popular_product_controller.dart';
+import 'package:fooddelivery/pages/home/main_food_page.dart';
+import 'package:fooddelivery/utils/app_constants.dart';
 import 'package:fooddelivery/utils/dimensions.dart';
 import 'package:fooddelivery/widgets/app_column.dart';
 import 'package:fooddelivery/widgets/app_icon.dart';
 import 'package:fooddelivery/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 import '../../utils/colors.dart';
 import '../../widgets/big_text.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+ final int pageId;
+  const PopularFoodDetail({super.key,required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product=Get.find<PopularProductController>().popularProductList[pageId];
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
@@ -21,20 +28,24 @@ class PopularFoodDetail extends StatelessWidget {
             child: Container(
               width: double.maxFinite,
               height: Dimensions.popularFoodImgSize,
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/food02.jpg")),
+                    image:NetworkImage(AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img)),
               ),
             )),
         Positioned(
           top: Dimensions.height45,
           left: Dimensions.width20,
           right: Dimensions.width20,
-          child: const Row(
+          child:  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppIcon(icon: Icons.arrow_back_ios),
+              GestureDetector(
+                onTap: () {
+                  Get.to(()=>MainFoodPage());
+                },
+                child: const AppIcon(icon: Icons.arrow_back_ios)),
               AppIcon(icon: Icons.shopping_cart_outlined)
             ],
           ),
@@ -58,7 +69,7 @@ class PopularFoodDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppColumn(
-                      text: "Chinese Side",
+                      text: product.name,
                     ),
                     SizedBox(
                       height: Dimensions.height20,
@@ -67,8 +78,7 @@ class PopularFoodDetail extends StatelessWidget {
                     Expanded(
                       child: SingleChildScrollView(
                         child: ExpandableTextWidget(
-                          text:
-                              "Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled ",
+                          text:product.description
                         ),
                       ),
                     )
@@ -130,7 +140,7 @@ class PopularFoodDetail extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: AppColors.mainColor),
               child: BigText(
-                text: "\$10 | Add to cart",
+                text: "\$ ${product.price}| Add to cart",
                 color: Colors.white,
               ),
             )

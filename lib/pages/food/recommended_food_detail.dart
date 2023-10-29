@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:fooddelivery/controllers/recommended_product_controller.dart';
+import 'package:fooddelivery/routes/route_helper.dart';
+import 'package:fooddelivery/utils/app_constants.dart';
 import 'package:fooddelivery/utils/colors.dart';
 import 'package:fooddelivery/utils/dimensions.dart';
 import 'package:fooddelivery/widgets/app_icon.dart';
 import 'package:fooddelivery/widgets/big_text.dart';
 import 'package:fooddelivery/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({super.key});
+ final int pageId;
+ const RecommendedFoodDetail({super.key,required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product=Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             toolbarHeight: 70,
+            automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
+                GestureDetector(
+                  onTap: () {
+                   Get.toNamed(RouteHelper.getInitial()); 
+                  },
+                  child: const AppIcon(icon: Icons.clear)),
                 AppIcon(icon: Icons.shopping_cart_outlined)
               ],
             ),
@@ -28,7 +39,7 @@ class RecommendedFoodDetail extends StatelessWidget {
               child: Container(
                 child: Center(
                     child: BigText(
-                  text: "Chinese Side",
+                  text: product.name!,
                   size: Dimensions.fonts26,
                 )),
                 width: double.maxFinite,
@@ -44,8 +55,8 @@ class RecommendedFoodDetail extends StatelessWidget {
             pinned: true,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/images/food02.jpg",
+              background: Image.network(
+                AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -56,8 +67,7 @@ class RecommendedFoodDetail extends StatelessWidget {
               children: [
                 Container(
                   child: ExpandableTextWidget(
-                    text:
-                        "Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge potChicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,then layered with friend onions(cheeky easy sub below!),Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled Chicken marinated in spiced yoghurt is placed in a laarge pot,Chicken marinated in spiced yoghurt is placed in a laarge pot,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled ,fresh coriander/cilantro,then parb boiled,then layered with friend onions(cheeky easy sub below!),fresh coriander/cilantro,then parb boiled",
+                    text:product.description!
                   ),
                 ),
               ],
@@ -83,7 +93,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     backGroundColor: AppColors.mainColor,
                     icon: Icons.remove),
                 BigText(
-                  text: "\$12.88" + "X" + "0",
+                  text: "\$ ${product.price} X 0",
                   color: AppColors.mainColor,
                   size: Dimensions.font16,
                 ),
@@ -120,7 +130,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: Colors.white,
               ),
-              child: Icon(Icons.favorite,color: AppColors.mainColor,)
+              child: const Icon(Icons.favorite,color: AppColors.mainColor,)
             ),
             Container(
               padding: EdgeInsets.only(
