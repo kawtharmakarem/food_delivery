@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:fooddelivery/controllers/cart_controller.dart';
 import 'package:fooddelivery/data/repository/popular_product_repo.dart';
 import 'package:fooddelivery/models/product_model.dart';
+import 'package:fooddelivery/utils/colors.dart';
 import 'package:get/get.dart';
 
 class PopularProductController extends GetxController{
@@ -10,6 +13,12 @@ class PopularProductController extends GetxController{
   List<dynamic> get popularProductList=>_popularProductList;
   bool _isLoaded=false;
   bool get isLoaded=>_isLoaded;
+  int _quantity=0;
+  int get quantity=>_quantity;
+  int _inCartItems=0;
+  int get inCartItems=>_inCartItems+_quantity;
+  late CartController _cart;
+
   
 
   Future<void> getPopularProductList() async{
@@ -24,4 +33,66 @@ class PopularProductController extends GetxController{
  }
   }
 
+  void setQuantity(bool isIncrement)
+  {
+    if(isIncrement)
+    {
+      _quantity=checkQuantity(_quantity+1);
+    }else{
+     _quantity=checkQuantity(_quantity-1);
+    }
+    update();
+  }
+
+ int checkQuantity(int quantity){
+    if((_inCartItems+quantity)<0)
+    {
+      Get.snackbar("Item Count", "You can't reduce more!",
+      backgroundColor: AppColors.mainColor,
+      colorText: Colors.white);
+      return 0;
+    }else if((_inCartItems+quantity)>20)
+    {
+      Get.snackbar("Item Count", "You can't add more!",
+      backgroundColor: AppColors.mainColor,
+      colorText: Colors.white);
+      return 20;
+    }else{
+      return quantity;
+    }
+  }
+
+void initProduct(ProductModal product,CartController cart){
+  _quantity=0;
+  _inCartItems=0;
+  _cart=cart;
+  var exist=false;
+  exist=_cart.exitInCart(product);
+  print("exists or not +"+exist.toString());
+  if(exist){
+    _inCartItems=_cart.getQuantity(product);
+  }
+  print("the quantity in the cart is : "+_inCartItems.toString());
+
+}
+
+
+
+void addItem(ProductModal product)
+{
+ // if(_quantity>0){
+    _cart.addItem(product, _quantity);
+    _quantity=0;
+
+    _inCartItems=_cart.getQuantity(product);
+    _cart.items.forEach((key, value) { 
+      print("the id is :"+value.id.toString()+"the quantity is :"+value.quantity.toString());
+    });
+
+  // }else{
+  //   Get.snackbar("ItemCount", "You should at least add an item in the cart !",
+  //   backgroundColor: AppColors.mainColor,
+  //   colorText: Colors.white);
+  // }
+}
 }
