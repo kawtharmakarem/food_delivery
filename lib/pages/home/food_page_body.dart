@@ -112,7 +112,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             builder: (recommendedProducts) {
           return recommendedProducts.isLoaded
               ? ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount:recommendedProducts.recommendedProductList.length,
                   itemBuilder: (context, index) {

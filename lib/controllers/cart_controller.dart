@@ -13,9 +13,13 @@ class CartController extends GetxController {
   Map<int,CartModal> get items=>_items;
 
   void addItem(ProductModal product, int quantity) {
+   var totalQuantity=0;
+
+
    if(_items.containsKey(product.id))
    {
     _items.update(product.id!, (value){
+      totalQuantity=value.quantity!+quantity;
       return CartModal(
         id: value.id,
         name: value.name,
@@ -24,7 +28,12 @@ class CartController extends GetxController {
         isExist: true,
         time: DateTime.now().toString(),
       );
+
+     
     });
+    if(totalQuantity<=0){
+      _items.remove(product.id!);
+    }
    }
    else
    {
@@ -78,4 +87,19 @@ int getQuantity(ProductModal product)
   return quantity;
 }
 
+int get totalItems{
+  var totalQuantity=0;
+  _items.forEach((key, value) { 
+    totalQuantity+=value.quantity!;
+  });
+
+  return totalQuantity;
+}
+
+
+List<CartModal> get getItems{
+ return _items.entries.map((e){
+    return e.value;
+  }).toList();
+}
 }
