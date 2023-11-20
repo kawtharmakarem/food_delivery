@@ -62,7 +62,7 @@ class CartController extends GetxController {
 
 
    }
-
+   cartRepo.addToCartList(getItems);
    update();
     
   }
@@ -105,4 +105,15 @@ List<CartModal> get getItems{
     return e.value;
   }).toList();
 }
+
+int get totalAmount{
+  int total=0;
+
+  _items.forEach((key, value) { 
+    total+=value.quantity!*value.price!;
+  });
+
+  return total;
+}
+
 }

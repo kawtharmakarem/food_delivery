@@ -4,6 +4,7 @@ import 'package:fooddelivery/controllers/recommended_product_controller.dart';
 import 'package:fooddelivery/pages/cart/cart_page.dart';
 import 'package:fooddelivery/pages/home/food_page_body.dart';
 import 'package:fooddelivery/pages/home/main_food_page.dart';
+import 'package:fooddelivery/pages/splash/splash_page.dart';
 import 'package:fooddelivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep;
@@ -20,16 +21,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendedProductController>().getRecommendedProductList();
-    return GetMaterialApp(
+    
+    return GetBuilder<PopularProductController>(builder: (_){
+      return GetBuilder<RecommendedProductController>(builder: (_){
+        return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
      
-      home: MainFoodPage(),
-      initialRoute: RouteHelper.initial,
+      // home: SplashScreen(),
+      initialRoute: RouteHelper.getSplashPage(),
       getPages: RouteHelper.routes,
     );
+      });
+    });
   }
 }
 

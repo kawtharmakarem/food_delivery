@@ -27,11 +27,16 @@ class CartPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(
-                  icon: Icons.arrow_back_ios,
-                  iconColor: Colors.white,
-                  backGroundColor: AppColors.mainColor,
-                  iconSize: Dimensions.iconSize24,
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: AppIcon(
+                    icon: Icons.arrow_back_ios,
+                    iconColor: Colors.white,
+                    backGroundColor: AppColors.mainColor,
+                    iconSize: Dimensions.iconSize24,
+                  ),
                 ),
                 SizedBox(
                   width: Dimensions.width20 * 5,
@@ -182,6 +187,65 @@ class CartPage extends StatelessWidget {
               ),
             ))
       ]),
-    );
+       bottomNavigationBar: GetBuilder<CartController>(
+          builder: (controller) => Container(
+            height: Dimensions.bottomHeightBar,
+            padding: EdgeInsets.only(
+                top: Dimensions.height30,
+                bottom: Dimensions.height20,
+                right: Dimensions.width20,
+                left: Dimensions.width20),
+            decoration: BoxDecoration(
+                color: AppColors.buttonBackgroudColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Dimensions.radius20 * 2),
+                    topRight: Radius.circular(Dimensions.radius20 * 2))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Dimensions.height20,
+                      bottom: Dimensions.height20,
+                      left: Dimensions.width20,
+                      right: Dimensions.width20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(Dimensions.radius20),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      
+                     SizedBox(width: Dimensions.width10/2,),
+                      BigText(text: "\$ ${controller.totalAmount}"),
+                      SizedBox(width: Dimensions.width10/2,)
+                      
+                      
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                        top: Dimensions.height20,
+                        bottom: Dimensions.height20),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimensions.radius20),
+                        color: AppColors.mainColor),
+                    child: BigText(
+                      text: "CheckOut",
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ));
+    
   }
 }
