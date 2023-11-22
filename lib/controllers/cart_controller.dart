@@ -11,6 +11,7 @@ class CartController extends GetxController {
   CartController({required this.cartRepo});
   Map<int, CartModal> _items = {};
   Map<int,CartModal> get items=>_items;
+  List<CartModal> storageItems=[];
 
   void addItem(ProductModal product, int quantity) {
    var totalQuantity=0;
@@ -116,4 +117,29 @@ int get totalAmount{
   return total;
 }
 
+ List<CartModal> getCartData(){
+setCart=cartRepo.getCartList();
+return storageItems;
+ }
+
+ set setCart(List<CartModal> items){
+  storageItems=items;
+  for(int i=0;i<storageItems.length;i++){
+    _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+  }
+ }
+
+void addToHistory(){
+  cartRepo.addToCartHistoryList();
+  clear();
+}
+void clear(){
+  _items={};
+  update();
+
+}
+
+List<CartModal> getCartHistoryList(){
+  return cartRepo.getCartHistoryList();
+}
 }
