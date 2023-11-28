@@ -142,4 +142,14 @@ void clear(){
 List<CartModal> getCartHistoryList(){
   return cartRepo.getCartHistoryList();
 }
+
+set setItems(Map<int,CartModal> setItems){
+  _items={};
+  _items=setItems;
+}
+
+void addToCartList(){
+  cartRepo.addToCartList(getItems);
+  update();
+}
 }

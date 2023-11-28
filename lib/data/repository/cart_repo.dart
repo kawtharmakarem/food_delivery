@@ -12,8 +12,9 @@ class CartRepo{
   List<String> cartHistory=[];
   
   void addToCartList(List<CartModal> cartList){
-    //sharedPreferences.remove(AppConstants.CART_LIST);
-    //sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+   /* sharedPreferences.remove(AppConstants.CART_LIST);
+    sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+    return;*/
     var time=DateTime.now().toString();
     cart=[];
     cartList.forEach((element) { 
@@ -57,9 +58,7 @@ for(int i=0;i<cart.length;i++){
 }
 removeCart();
 sharedPreferences.setStringList(AppConstants.CART_HISTORY_LIST, cartHistory);
-print("the length of history list"+getCartHistoryList().length.toString());
 for(int j=0;j<getCartHistoryList().length;j++){
-  print("The time for this order"+getCartHistoryList()[j].time.toString());
 }
 }
 
